@@ -12,6 +12,7 @@ import lombok.*;
 public class IntegrationReqistered extends AbstractEvent {
 
     private Long 연계Id;
+    private String 신청번호;
 
     public IntegrationReqistered(Integration aggregate) {
         super(aggregate);

@@ -1,10 +1,12 @@
 package complaintapplyissue.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import complaintapplyissue.ApplicationApplication;
 import complaintapplyissue.domain.ComplaintAccepted;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -35,9 +37,6 @@ public class Complaint {
     private Date 등록일시;
 
     private Date 수정일시;
-
-    @Embedded
-    private 구비서류 구비서류;
 
     @Embedded
     private ReceiveMethod 신청수령방법;

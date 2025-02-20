@@ -1,11 +1,10 @@
 <template>
 
-    <v-card outlined>
-        <v-card-title>
-            ApplicationFile
-        </v-card-title>
-
-        <v-card-text>
+    <div>
+        <div class="detail-title">
+        ApplicationFile
+        </div>
+        <v-col>
             <String label="파일Id" v-model="value.파일Id" :editMode="editMode"/>
             <String label="파일명" v-model="value.파일명" :editMode="editMode"/>
             <String label="파일확장자명" v-model="value.파일확장자명" :editMode="editMode"/>
@@ -14,113 +13,47 @@
             <Boolean label="사용여부" v-model="value.사용여부" :editMode="editMode"/>
             <Date label="등록일시" v-model="value.등록일시" :editMode="editMode"/>
             <Date label="수정일시" v-model="value.수정일시" :editMode="editMode"/>
-        </v-card-text>
+        </v-col>
 
         <v-card-actions v-if="inList">
             <slot name="actions"></slot>
         </v-card-actions>
-    </v-card>
+    </div>
 </template>
 
 <script>
+import BaseEntity from './base-ui/BaseEntity.vue'
+import BasePicker from './base-ui/BasePicker.vue'
 
-    export default {
-        name: 'ApplicationFile',
-        components:{},
-        props: {
-            value: [Object, String, Number, Boolean, Array],
-            editMode: Boolean,
-            isNew: Boolean,
-            offline: Boolean,
-            inList: Boolean,
-            label: String,
+export default {
+    name: 'ApplicationFile',
+    mixins:[BaseEntity],
+    components:{
+        BasePicker
+    },
+    data: () => ({
+        path: 'ApplicationFiles',
+    }),
+    props: {
+    },
+    watch: {
+        value(val){
+            this.value = val;
+            this.change();
         },
-        data: () => ({
-        }),
-        async created() {
-            if(!Object.values(this.value)[0]) {
-                this.$emit('input', {});
-                this.newValue = {
-                    '파일Id': '',
-                    '파일명': '',
-                    '파일확장자명': '',
-                    '파일유형코드': '',
-                    '파일순서': '',
-                    '사용여부': '',
-                    '등록일시': '',
-                    '수정일시': '',
-                }
-            }
-            if(typeof this.value === 'object') {
-                if(!('파일Id' in this.value)) {
-                    this.value.파일Id = '';
-                }
-            }
-            if(typeof this.value === 'object') {
-                if(!('파일명' in this.value)) {
-                    this.value.파일명 = '';
-                }
-            }
-            if(typeof this.value === 'object') {
-                if(!('파일확장자명' in this.value)) {
-                    this.value.파일확장자명 = '';
-                }
-            }
-            if(typeof this.value === 'object') {
-                if(!('파일순서' in this.value)) {
-                    this.value.파일순서 = '';
-                }
-            }
-            if(typeof this.value === 'object') {
-                if(!('사용여부' in this.value)) {
-                    this.value.사용여부 = false;
-                }
-            }
-            if(typeof this.value === 'object') {
-                if(!('등록일시' in this.value)) {
-                    this.value.등록일시 = '2024-11-14';
-                }
-            }
-            if(typeof this.value === 'object') {
-                if(!('수정일시' in this.value)) {
-                    this.value.수정일시 = '2024-11-14';
-                }
-            }
-        },
-        watch: {
-            value(val) {
-                this.$emit('input', val);
-            },
-            newValue(val) {
-                this.$emit('input', val);
-            },
-        },
-
-        methods: {
-            edit() {
-                this.editMode = true;
-            },
-            async add() {
-                this.editMode = false;
-                this.$emit('input', this.value);
-
-                if(this.isNew){
-                    this.$emit('add', this.value);
-                } else {
-                    this.$emit('edit', this.value);
-                }
-            },
-            async remove(){
-                this.editMode = false;
-                this.isDeleted = true;
-
-                this.$emit('input', this.value);
-                this.$emit('delete', this.value);
-            },
-            change(){
-                this.$emit('change', this.value);
-            },
+    },
+    async created(){
+        this.value = this.modelValue
+        if (this.value && this.value.id !== undefined) {
+            this.value = await this.repository.findById(this.value.id)
         }
+    },
+    methods: {
+        pick(val){
+            this.value = val;
+            this.change();
+        },
     }
+}
 </script>
 

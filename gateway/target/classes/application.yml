@@ -16,7 +16,7 @@ spring:
         - id: issue
           uri: http://localhost:8083
           predicates:
-            - Path=/issurances/**, 
+            - Path=/issurances/**, /applicationStatusQueries/**
         - id: alarm
           uri: http://localhost:8084
           predicates:
@@ -33,6 +33,10 @@ spring:
           uri: http://localhost:8080
           predicates:
             - Path=/**
+        - id: eventcollections
+          uri: http://localhost:9999
+          predicates:
+            - Path=/eventCollectors/**
 #>>> API Gateway / Routes
       globalcors:
         corsConfigurations:
@@ -77,6 +81,10 @@ spring:
           uri: http://frontend:8080
           predicates:
             - Path=/**
+        - id: eventcollections
+          uri: http://eventcollections:8080
+          predicates:
+            - Path=/eventCollectors/**
       globalcors:
         corsConfigurations:
           '[/**]':

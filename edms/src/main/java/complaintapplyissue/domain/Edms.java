@@ -1,10 +1,12 @@
 package complaintapplyissue.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import complaintapplyissue.EdmsApplication;
 import complaintapplyissue.domain.EdmsStored;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -53,6 +55,11 @@ public class Edms {
 
         /** Example 2:  finding and process
         
+        // if relationPartyServiceDone.소관부처Id exists, use it
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        // Map<, Object> integrationMap = mapper.convertValue(relationPartyServiceDone.get소관부처Id(), Map.class);
+
         repository().findById(relationPartyServiceDone.get???()).ifPresent(edms->{
             
             edms // do something

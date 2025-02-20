@@ -1,11 +1,13 @@
 package complaintapplyissue.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import complaintapplyissue.AlarmApplication;
 import complaintapplyissue.domain.신청완료알림;
 import complaintapplyissue.domain.처리완료알림;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -26,15 +28,6 @@ public class 알림 {
     private String 신청알림발송여부;
 
     private String 처리알림발송여부;
-
-    @PostPersist
-    public void onPostPersist() {
-        신청완료알림 신청완료알림 = new 신청완료알림(this);
-        신청완료알림.publishAfterCommit();
-
-        처리완료알림 처리완료알림 = new 처리완료알림(this);
-        처리완료알림.publishAfterCommit();
-    }
 
     public static 알림Repository repository() {
         알림Repository 알림Repository = AlarmApplication.applicationContext.getBean(
@@ -59,6 +52,11 @@ public class 알림 {
 
         /** Example 2:  finding and process
         
+        // if edmsStored.edmsId exists, use it
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        // Map<, Object> edmsMap = mapper.convertValue(edmsStored.getEdmsId(), Map.class);
+
         repository().findById(edmsStored.get???()).ifPresent(알림->{
             
             알림 // do something
@@ -91,6 +89,7 @@ public class 알림 {
 
         /** Example 2:  finding and process
         
+
         repository().findById(complaintAccepted.get???()).ifPresent(알림->{
             
             알림 // do something

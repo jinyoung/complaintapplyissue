@@ -1,11 +1,13 @@
 package complaintapplyissue.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import complaintapplyissue.IssueApplication;
 import complaintapplyissue.domain.PrintRequested;
 import complaintapplyissue.domain.Printed;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -33,7 +35,7 @@ public class Issurance {
 
     private String 파일순서;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
     private FileType fileType;
 
     private String status;
@@ -68,6 +70,11 @@ public class Issurance {
 
         /** Example 2:  finding and process
         
+        // if edmsStored.edmsId exists, use it
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        // Map<, Object> edmsMap = mapper.convertValue(edmsStored.getEdmsId(), Map.class);
+
         repository().findById(edmsStored.get???()).ifPresent(issurance->{
             
             issurance // do something
@@ -94,6 +101,7 @@ public class Issurance {
 
         /** Example 2:  finding and process
         
+
         repository().findById(complaintAccepted.get???()).ifPresent(issurance->{
             
             issurance // do something

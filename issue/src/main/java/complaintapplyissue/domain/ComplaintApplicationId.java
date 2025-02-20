@@ -15,7 +15,6 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 public class ComplaintApplicationId {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 }
 //>>> DDD / Value Object
