@@ -10,7 +10,10 @@ import lombok.*;
 public class PrintRequested extends AbstractEvent {
 
     private Long id;
+
+    @NotNull
     private String 민원id;
+
     private String 민원접수번호;
     private String 발급물여부;
     private String 뷰어실행여부;

@@ -33,7 +33,19 @@ public class EventCollectorViewHandler {
         switch (eventType) {
             case "ComplaintAccepted":
                 return jsonNode.get("신청 번호").asText();
+            case "Printed":
+                return jsonNode.get("민원id").asText();
+            case "PrintRequested":
+                return jsonNode.get("민원id").asText();
+            case "신청완료알림":
+                return jsonNode.get("민원id").asText();
+            case "처리완료알림":
+                return jsonNode.get("민원id").asText();
+            case "RelationPartyServiceDone":
+                return jsonNode.get("신청 번호").asText();
             case "IntegrationReqistered":
+                return jsonNode.get("신청 번호").asText();
+            case "EdmsStored":
                 return jsonNode.get("신청 번호").asText();
             default:
                 return "Unknown";
